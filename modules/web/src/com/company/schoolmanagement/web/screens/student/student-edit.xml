@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://studentEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.schoolmanagement.web.screens.student">
+    <data>
+        <instance id="studentDc"
+                  class="com.company.schoolmanagement.entity.Student">
+            <view extends="_local">
+                <property name="classes" view="_minimal">
+                    <property name="grade"/>
+                </property>
+            </view>
+            <loader/>
+            <collection id="classesDc" property="classes"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="studentDc">
+            <column width="350px">
+                <textField id="nameField" property="name"/>
+                <dateField id="dobField" property="dob"/>
+            </column>
+        </form>
+        <groupBox id="classesBox" caption="msg://com.company.schoolmanagement.entity/Student.classes">
+            <table id="classesTable" dataContainer="classesDc" width="100%" height="200px">
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
+                <columns>
+                    <column id="name"/>
+                    <column id="grade"/>
+                </columns>
+                <buttonsPanel>
+                    <button action="classesTable.add"/>
+                    <button action="classesTable.exclude"/>
+                </buttonsPanel>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>

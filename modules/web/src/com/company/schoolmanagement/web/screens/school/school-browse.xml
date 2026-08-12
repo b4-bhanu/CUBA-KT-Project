@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/window.xsd"
+        caption="msg://schoolBrowse.caption"
+        class="com.company.schoolmanagement.web.screens.school.SchoolBrowse"
+        focusComponent="schoolsTable"
+        lookupComponent="schoolsTable"
+        messagesPack="com.company.schoolmanagement.web.screens.school">
+    <dsContext>
+        <groupDatasource id="schoolsDs"
+                         class="com.company.schoolmanagement.entity.School"
+                         view="_local">
+            <query>
+                <![CDATA[select e from schoolmanagement_School e]]>
+            </query>
+        </groupDatasource>
+    </dsContext>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="schoolsTable"
+            spacing="true">
+        <filter id="filter"
+                applyTo="schoolsTable"
+                datasource="schoolsDs">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="schoolsTable"
+                    width="100%">
+            <actions>
+                <action id="create"
+                        openType="NEW_TAB"/>
+                <action id="edit"
+                        openType="NEW_TAB"/>
+                <action id="remove"/>
+                <action id="refresh"/>
+            </actions>
+            <columns>
+                <column id="name"/>
+                <column id="address"/>
+            </columns>
+            <rows datasource="schoolsDs"/>
+            <rowsCount/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="createBtn" action="schoolsTable.create"/>
+                <button id="editBtn" action="schoolsTable.edit"/>
+                <button id="removeBtn" action="schoolsTable.remove"/>
+                <button id="refreshBtn" action="schoolsTable.refresh"/>
+            </buttonsPanel>
+        </groupTable>
+    </layout>
+</window>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://schemas.haulmont.com/cuba/screen/window.xsd"
+        caption="msg://schoolClassEdit.caption"
+        focusComponent="form"
+        messagesPack="com.company.schoolmanagement.web.screens.schoolclass">
+    <data>
+        <instance id="schoolClassDc"
+                  class="com.company.schoolmanagement.entity.SchoolClass">
+            <view extends="_local">
+                <property name="school" view="_minimal">
+                    <property name="address"/>
+                </property>
+                <property name="students" view="_minimal">
+                    <property name="dob"/>
+                </property>
+            </view>
+            <loader/>
+            <collection id="studentsDc" property="students"/>
+        </instance>
+    </data>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="editActions" spacing="true">
+        <form id="form" dataContainer="schoolClassDc">
+            <column width="350px">
+                <textField id="nameField" property="name"/>
+                <textField id="gradeField" property="grade"/>
+                <pickerField id="schoolField" property="school">
+                    <actions>
+                        <action id="lookup" type="picker_lookup"/>
+                        <action id="clear" type="picker_clear"/>
+                    </actions>
+                </pickerField>
+            </column>
+        </form>
+        <groupBox id="studentsBox" caption="msg://com.company.schoolmanagement.entity/SchoolClass.students">
+            <table id="studentsTable" dataContainer="studentsDc" width="100%" height="200px">
+                <columns>
+                    <column id="name"/>
+                    <column id="dob"/>
+                </columns>
+            </table>
+        </groupBox>
+        <hbox id="editActions" spacing="true">
+            <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
+            <button id="closeBtn" action="windowClose"/>
+        </hbox>
+    </layout>
+</window>
