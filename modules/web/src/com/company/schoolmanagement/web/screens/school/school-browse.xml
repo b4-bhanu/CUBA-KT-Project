@@ -8,7 +8,7 @@
     <dsContext>
         <groupDatasource id="schoolsDs"
                          class="com.company.schoolmanagement.entity.School"
-                         view="_local">
+                         view="school-with-classes">
             <query>
                 <![CDATA[select e from schoolmanagement_School e]]>
             </query>
