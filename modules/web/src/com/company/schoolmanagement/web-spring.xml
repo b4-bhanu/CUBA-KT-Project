@@ -3,19 +3,17 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:gui="http://schemas.haulmont.com/cuba/spring/cuba-gui.xsd">
 
+    <!-- Annotation-based beans -->
     <context:component-scan base-package="com.company.schoolmanagement"/>
 
-    <bean id="scm_proxyCreator"
-          class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
+    <gui:screens base-packages="com.company.schoolmanagement.web"/>
+    <bean id="schoolmanagement_proxyCreator" class="com.haulmont.cuba.web.sys.remoting.WebRemoteProxyBeanCreator">
         <property name="serverSelector" ref="cuba_ServerSelector"/>
         <property name="remoteServices">
             <map>
-                <entry key="scm_EnrollmentService"
-                       value="com.company.schoolmanagement.service.EnrollmentService"/>
+                <entry key="schoolmanagement_TestService" value="com.company.schoolmanagement.service.EnrollmentService"/>
             </map>
         </property>
     </bean>
-
-    <gui:screens base-packages="com.company.schoolmanagement.web"/>
 
 </beans>
