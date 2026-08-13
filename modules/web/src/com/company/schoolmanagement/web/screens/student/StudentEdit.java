@@ -16,6 +16,8 @@ import javax.inject.Inject;
 @LoadDataBeforeShow
 public class StudentEdit extends StandardEditor<Student> {
 
+//    @Inject
+//    private EnrollmentService enrollmentService;
     @Inject
     private EnrollmentService enrollmentService;
 
