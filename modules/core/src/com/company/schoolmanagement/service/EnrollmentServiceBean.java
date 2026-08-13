@@ -7,9 +7,8 @@ import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
 
-
 @Service(EnrollmentService.NAME)
-public class EnrollmentServiceBean implements EnrollmentService{
+public class EnrollmentServiceBean implements EnrollmentService {
 
     @Inject
     private DataManager dataManager;
