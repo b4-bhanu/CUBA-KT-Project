@@ -11,9 +11,24 @@
                     <property name="grade"/>
                 </property>
             </view>
-            <loader/>
+            <loader id = "studentDl"/>
             <collection id="classesDc" property="classes"/>
+
+
         </instance>
+<!--        // to load all the available classes into my student-edit page-->
+        <collection id="availableClassesDc"
+                    class="com.company.schoolmanagement.entity.SchoolClass"
+                    view="_local">
+            <loader>
+                <query>
+                    <![CDATA[
+                select e from schoolmanagement_SchoolClass e
+            ]]>
+                </query>
+            </loader>
+        </collection>
+
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -40,9 +55,16 @@
                 </buttonsPanel>
             </table>
         </groupBox>
+
+        <button id = "enrollBtn" caption = "Enroll"/>
+
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
         </hbox>
+
+        <lookupPickerField id="classPicker"
+                     caption="Class"
+                     optionsContainer="availableClassesDc"/>
     </layout>
 </window>
