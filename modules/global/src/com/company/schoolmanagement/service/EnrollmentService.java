@@ -5,5 +5,5 @@
 
  public interface EnrollmentService {
     String NAME = "schoolmanagement_TestService";
-    void enroll(Student student, SchoolClass clazz);
+    EnrollmentStatus enroll(Student student, SchoolClass clazz);
 }
