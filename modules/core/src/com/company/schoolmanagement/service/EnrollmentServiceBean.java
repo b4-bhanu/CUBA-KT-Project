@@ -14,13 +14,14 @@ public class EnrollmentServiceBean implements EnrollmentService {
     private DataManager dataManager;
 
     @Override
-    public void enroll(Student student, SchoolClass clazz) {
+    public EnrollmentStatus enroll(Student student, SchoolClass clazz) {
         if(student.getClasses().contains(clazz)){
             // avoid duplicate entries
-            return;
+            return EnrollmentStatus.DUPLICATE;
         }
 
         student.getClasses().add(clazz);
         dataManager.commit(student);
+        return EnrollmentStatus.ENROLLED;
     }
 }
