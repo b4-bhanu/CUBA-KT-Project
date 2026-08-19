@@ -38,7 +38,7 @@
             <columns>
                 <column id="name"/>
                 <column id="grade"/>
-                <column id="school"/>
+                <column id="action"/>
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
