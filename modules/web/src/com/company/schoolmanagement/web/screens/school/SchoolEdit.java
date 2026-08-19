@@ -8,4 +8,12 @@ import com.company.schoolmanagement.entity.School;
 @EditedEntityContainer("schoolDc")
 @LoadDataBeforeShow
 public class SchoolEdit extends StandardEditor<School> {
+    @Subscribe
+    public void onInitEntity(InitEntityEvent<School> event) {
+        School school = event.getEntity();
+        school.setName("NEW SCHOOL");
+    }
+
+
+
 }

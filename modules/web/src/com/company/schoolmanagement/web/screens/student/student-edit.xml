@@ -57,14 +57,15 @@
         </groupBox>
 
         <button id = "enrollBtn" caption = "Enroll"/>
+        <lookupPickerField id="classPicker"
+                           caption="Class"
+                           optionsContainer="availableClassesDc"/>
 
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
         </hbox>
 
-        <lookupPickerField id="classPicker"
-                     caption="Class"
-                     optionsContainer="availableClassesDc"/>
+
     </layout>
 </window>
