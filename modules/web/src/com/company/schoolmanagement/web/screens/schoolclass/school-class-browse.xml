@@ -9,6 +9,7 @@
                     class="com.company.schoolmanagement.entity.SchoolClass">
             <view extends="_local">
                 <property name="school" view="_minimal"/>
+                <property name ="students" view ="_minimal"/>
             </view>
             <loader id="schoolClassesDl">
                 <query>
@@ -38,7 +39,9 @@
             <columns>
                 <column id="name"/>
                 <column id="grade"/>
-                <column id="action"/>
+<!--                <column id="action"/>-->
+                <column id ="capacity" />
+                <column id ="studentCount" />
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
