@@ -11,6 +11,7 @@ create table SCHOOLMANAGEMENT_STUDENT (
     --
     NAME varchar(255) not null,
     DOB date not null,
+    ENROLLED_ON date,
     --
     primary key (ID)
 )^
@@ -45,6 +46,8 @@ create table SCHOOLMANAGEMENT_SCHOOL_CLASS (
     --
     NAME varchar(255) not null,
     GRADE varchar(255) not null,
+    CAPACITY integer,
+    STUDENT_COUNT integer,
     SCHOOL_ID varchar(36),
     --
     primary key (ID)
