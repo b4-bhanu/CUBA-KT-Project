@@ -17,6 +17,13 @@ public class SchoolClass extends StandardEntity {
     @Column(name = "GRADE", nullable = false)
     private String grade;
 
+    @Column(name = "CAPACITY")
+    private Integer capacity;
+
+    @Column(name = "STUDENT_COUNT")
+    private Integer studentCount;
+
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "SCHOOL_ID")
     private School school;
@@ -56,5 +63,21 @@ public class SchoolClass extends StandardEntity {
 
     public void setStudents(List<Student> students) {
         this.students = students;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Integer getStudentCount() {
+        return studentCount;
+    }
+
+    public void setStudentCount(Integer studentCount) {
+        this.studentCount = studentCount;
     }
 }
