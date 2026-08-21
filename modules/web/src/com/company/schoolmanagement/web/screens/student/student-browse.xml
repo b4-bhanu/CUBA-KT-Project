@@ -36,6 +36,7 @@
             <columns>
                 <column id="name"/>
                 <column id="dob"/>
+                <column id ="enrolledOn" />
             </columns>
             <rowsCount/>
             <buttonsPanel id="buttonsPanel"
