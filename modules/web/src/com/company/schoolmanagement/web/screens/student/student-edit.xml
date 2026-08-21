@@ -13,8 +13,6 @@
             </view>
             <loader id = "studentDl"/>
             <collection id="classesDc" property="classes"/>
-
-
         </instance>
 <!--        // to load all the available classes into my student-edit page-->
         <collection id="availableClassesDc"
@@ -55,11 +53,12 @@
                 </buttonsPanel>
             </table>
         </groupBox>
-
+        <buttonsPanel>
         <button id = "enrollBtn" caption = "Enroll"/>
         <lookupPickerField id="classPicker"
                            caption="Class"
                            optionsContainer="availableClassesDc"/>
+        </buttonsPanel>
 
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
