@@ -9,6 +9,7 @@ import java.util.Date;
 
 
 @NamePattern("%s|name")
+@EntityListeners(StudentEntityListener.class)
 @Table(name = "SCHOOLMANAGEMENT_STUDENT")
 @Entity(name = "schoolmanagement_Student")
 public class Student extends StandardEntity {
@@ -20,6 +21,10 @@ public class Student extends StandardEntity {
     @Temporal(TemporalType.DATE)
     @Column(name = "DOB", nullable = false )
     private Date dob;
+
+    @Column(name = "ENROLLED_ON")
+    @Temporal(TemporalType.DATE)
+    private Date enrolledOn;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -53,4 +58,11 @@ public class Student extends StandardEntity {
         this.classes = classes;
     }
 
+    public Date getEnrolledOn() {
+        return enrolledOn;
+    }
+
+    public void setEnrolledOn(Date enrolledOn) {
+        this.enrolledOn = enrolledOn;
+    }
 }
