@@ -19,12 +19,9 @@ import javax.inject.Inject;
 @LoadDataBeforeShow
 public class SchoolClassEdit extends StandardEditor<SchoolClass> {
 
-
-
-
-
-
-
-
+    @Subscribe
+    protected void onInitEntity(InitEntityEvent<SchoolClass> event) {
+        event.getEntity().setCapacity(3);
+    }
 
 }
