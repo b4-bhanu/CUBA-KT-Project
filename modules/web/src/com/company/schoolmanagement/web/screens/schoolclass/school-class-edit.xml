@@ -17,6 +17,11 @@
             <loader/>
             <collection id="studentsDc" property="students"/>
         </instance>
+        <collection id="school" class="com.company.schoolmanagement.entity.School" view="_local">
+            <loader id="schoolDl">
+                <query><![CDATA[select e from schoolmanagement_School e]]></query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -25,20 +30,27 @@
             <column width="350px">
                 <textField id="nameField" property="name"/>
                 <textField id="gradeField" property="grade"/>
-                <pickerField id="schoolField" property="school">
-                    <actions>
-                        <action id="lookup" type="picker_lookup"/>
-                        <action id="clear" type="picker_clear"/>
-                    </actions>
-                </pickerField>
+                <textField id="capacity" property="capacity"/>
+                <lookupPickerField id="schoolField" property = "school"
+                                   caption="School"
+                                   optionsContainer="school" />
             </column>
         </form>
+        <buttonsPanel>
+        <button id="addBtn" action="studentsTable.add"/>
+        <button id="excludeBtn" action="studentsTable.exclude"/>
+        </buttonsPanel>
         <groupBox id="studentsBox" caption="msg://com.company.schoolmanagement.entity/SchoolClass.students">
             <table id="studentsTable" dataContainer="studentsDc" width="100%" height="200px">
                 <columns>
                     <column id="name"/>
                     <column id="dob"/>
                 </columns>
+
+                <actions>
+                    <action id="add" type="add"/>
+                    <action id="exclude" type="exclude"/>
+                </actions>
             </table>
         </groupBox>
         <hbox id="editActions" spacing="true">
