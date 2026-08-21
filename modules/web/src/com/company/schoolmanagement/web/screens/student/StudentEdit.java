@@ -51,6 +51,9 @@ public class StudentEdit extends StandardEditor<Student> {
         if(status == EnrollmentStatus.ENROLLED){
             notifications.create().withCaption("Student enrolled successfully").show();
         }
+        else if(status == EnrollmentStatus.OVERLOAD){
+            notifications.create().withCaption("This Class is full").show();
+        }
         else{
             notifications.create().withCaption("Student is already enrolled in this class").show();
         }
@@ -64,8 +67,6 @@ public class StudentEdit extends StandardEditor<Student> {
         student.setName("New Student");
         student.setDob(new Date());
     }
-
-
 
 
 
