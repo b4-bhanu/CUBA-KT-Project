@@ -17,6 +17,17 @@
                 </query>
             </loader>
         </collection>
+        <collection id="schoolsDc"
+                    class="com.company.schoolmanagement.entity.School"
+                    view="_local">
+            <loader id = "schoolsDl">
+                <query>
+                    <![CDATA[
+                select e from schoolmanagement_School e
+                    ]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -36,6 +47,7 @@
                 <action id="remove" type="remove"/>
                 <action id="refresh" type="refresh"/>
             </actions>
+
             <columns>
                 <column id="name"/>
                 <column id="grade"/>
@@ -43,18 +55,26 @@
                 <column id ="capacity" />
                 <column id ="studentCount" />
             </columns>
-            <rowsCount/>
+<!--            <rowsCount/>-->
+
             <buttonsPanel id="buttonsPanel"
                           alwaysVisible="true">
                 <button id="createBtn" action="schoolClassesTable.create"/>
                 <button id="editBtn" action="schoolClassesTable.edit"/>
                 <button id="removeBtn" action="schoolClassesTable.remove"/>
                 <button id="refreshBtn" action="schoolClassesTable.refresh"/>
+                <hbox id="schoolFilterBox" spacing="true">
+                    <label value="School:"/>
+                    <lookupPickerField id="schoolFilter"
+                                       optionsContainer="schoolsDc"/>
+                </hbox>
             </buttonsPanel>
         </groupTable>
         <hbox id="lookupActions" spacing="true" visible="false">
             <button action="lookupSelectAction"/>
             <button action="lookupCancelAction"/>
         </hbox>
+
     </layout>
+
 </window>
