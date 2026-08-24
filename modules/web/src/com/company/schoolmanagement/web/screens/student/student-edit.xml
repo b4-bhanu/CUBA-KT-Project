@@ -58,6 +58,7 @@
         <lookupPickerField id="classPicker"
                            caption="Class"
                            optionsContainer="availableClassesDc"/>
+
         </buttonsPanel>
 
         <hbox id="editActions" spacing="true">

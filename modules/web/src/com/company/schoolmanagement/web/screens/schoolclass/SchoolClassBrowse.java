@@ -1,6 +1,7 @@
 package com.company.schoolmanagement.web.screens.schoolclass;
 
 import com.company.schoolmanagement.entity.School;
+import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.GroupTable;
 import com.haulmont.cuba.gui.components.HasValue;
@@ -30,9 +31,21 @@ public class SchoolClassBrowse extends StandardLookup<SchoolClass> {
     @Inject
     private CollectionLoader<SchoolClass> schoolClassesDl;
 
+    @Inject
+    DataManager dataManager;
+
     @Install(to = "schoolClassesTable.studentCount", subject = "valueProvider")
     private String schoolClassesTableStudentCountValueProvider(SchoolClass schoolClass) {
-        return schoolClass.getStudents().size() + "/" + schoolClass.getCapacity();
+
+        Long count = dataManager.loadValue(
+                        "select count(s) from schoolmanagement_Student s " +
+                                "join s.classes c " +
+                                "where c.id = :classId",
+                        Long.class)
+                .parameter("classId", schoolClass.getId())
+                .one();
+
+        return count + "/" + schoolClass.getCapacity();
     }
 
     @Subscribe("schoolFilter")
