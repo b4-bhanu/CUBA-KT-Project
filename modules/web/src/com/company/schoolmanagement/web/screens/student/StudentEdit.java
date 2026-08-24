@@ -67,7 +67,4 @@ public class StudentEdit extends StandardEditor<Student> {
         student.setName("New Student");
         student.setDob(new Date());
     }
-
-
-
 }
