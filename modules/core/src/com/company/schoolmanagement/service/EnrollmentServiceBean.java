@@ -3,15 +3,15 @@ package com.company.schoolmanagement.service;
 import com.company.schoolmanagement.entity.SchoolClass;
 import com.company.schoolmanagement.entity.Student;
 import com.haulmont.cuba.core.global.DataManager;
-import com.haulmont.cuba.gui.Notifications;
+import org.slf4j.Logger;
 import org.springframework.stereotype.Service;
 
 import javax.inject.Inject;
-import javax.management.Notification;
 
 @Service(EnrollmentService.NAME)
 public class EnrollmentServiceBean implements EnrollmentService {
 
+    private static final Logger log = org.slf4j.LoggerFactory.getLogger(EnrollmentServiceBean.class);
     @Inject
     private DataManager dataManager;
 
@@ -21,10 +21,10 @@ public class EnrollmentServiceBean implements EnrollmentService {
             // avoid duplicate entries
             return EnrollmentStatus.DUPLICATE;
         }
-        System.out.println("Student count: " + clazz.getStudents().size());
-        System.out.println("Capacity: " + clazz.getCapacity());
+//        log.info("Student count: {}", clazz.getStudents().size());
+//        log.info("Capacity: {}", clazz.getCapacity());
         if(clazz.getStudents().size() >= clazz.getCapacity()){
-            // avoid class overload
+//             avoid class overload
             return EnrollmentStatus.OVERLOAD;
 
         }
