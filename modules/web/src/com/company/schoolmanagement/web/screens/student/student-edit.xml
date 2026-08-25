@@ -40,7 +40,7 @@
         <groupBox id="classesBox" caption="msg://com.company.schoolmanagement.entity/Student.classes">
             <table id="classesTable" dataContainer="classesDc" width="100%" height="200px">
                 <actions>
-                    <action id="add" type="add"/>
+<!--                    <action id="add" type="add"/>-->
                     <action id="exclude" type="exclude"/>
                 </actions>
                 <columns>
@@ -48,7 +48,7 @@
                     <column id="grade"/>
                 </columns>
                 <buttonsPanel>
-                    <button action="classesTable.add"/>
+                    <button id ="addBtn" caption="Add"/>
                     <button action="classesTable.exclude"/>
                 </buttonsPanel>
             </table>

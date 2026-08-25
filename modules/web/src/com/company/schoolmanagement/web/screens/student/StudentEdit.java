@@ -5,6 +5,7 @@ import com.company.schoolmanagement.entity.Student;
 import com.company.schoolmanagement.service.EnrollmentService;
 import com.company.schoolmanagement.service.EnrollmentStatus;
 import com.haulmont.cuba.gui.Notifications;
+import com.haulmont.cuba.gui.ScreenBuilders;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.LookupPickerField;
 import com.haulmont.cuba.gui.components.Table;
@@ -34,6 +35,8 @@ public class StudentEdit extends StandardEditor<Student> {
     Notifications notifications;
 
     @Inject private Button enrollBtn;
+    @Inject
+    private ScreenBuilders screenBuilders;
 
 
     @Subscribe("enrollBtn")
@@ -66,6 +69,42 @@ public class StudentEdit extends StandardEditor<Student> {
         Student student = event.getEntity();
         student.setName("New Student");
         student.setDob(new Date());
+    }
+
+    @Subscribe("addBtn")
+    protected void onAddBtnClick(Button.ClickEvent event) {
+
+        screenBuilders.lookup(SchoolClass.class, this)
+                .withOpenMode(OpenMode.DIALOG)
+                .withSelectHandler(classes -> {
+                    SchoolClass schoolClass = classes.iterator().next();
+
+                        EnrollmentStatus status =
+                                enrollmentService.enroll(
+                                        getEditedEntity(),
+                                        schoolClass
+                                );
+
+                        if (status == EnrollmentStatus.ENROLLED) {
+                            notifications.create()
+                                    .withCaption("Class enrolled successfully")
+                                    .show();
+
+                        } else if (status == EnrollmentStatus.DUPLICATE) {
+                            notifications.create()
+                                    .withCaption("Student is already enrolled in this class")
+                                    .show();
+
+                        } else if (status == EnrollmentStatus.OVERLOAD) {
+                            notifications.create()
+                                    .withCaption("Class is full")
+                                    .show();
+                        }
+
+                    getScreenData().loadAll();
+                })
+                .build()
+                .show();
     }
 
 
