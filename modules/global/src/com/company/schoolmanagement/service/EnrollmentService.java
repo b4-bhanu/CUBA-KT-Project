@@ -5,7 +5,7 @@
 
  public interface EnrollmentService {
     String NAME = "schoolmanagement_TestService";
-    EnrollmentStatus enroll(Student student, SchoolClass clazz);
+     EnrollmentStatus enroll(Student student, SchoolClass clazz);
 
      EnrollmentStatus exclude(Student student, SchoolClass clazz);
  }

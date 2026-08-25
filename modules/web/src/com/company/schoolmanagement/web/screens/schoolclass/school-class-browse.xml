@@ -11,18 +11,8 @@
                 <property name="school" view="_minimal"/>
                 <property name ="students" view ="_minimal"/>
             </view>
-            <loader id="schoolClassesDl">
-                <query>
-                    <![CDATA[
-            select e from schoolmanagement_SchoolClass e
-        ]]>
-                    <condition>
-                        <c:jpql>
-                            <c:where>e.school = :school</c:where>
-                        </c:jpql>
-                    </condition>
-                </query>
-            </loader>
+            <loader id="schoolClassesDl"/>
+
         </collection>
         <collection id="schoolsDc"
                     class="com.company.schoolmanagement.entity.School"
