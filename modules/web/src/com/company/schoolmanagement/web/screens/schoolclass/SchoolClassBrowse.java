@@ -3,6 +3,7 @@ package com.company.schoolmanagement.web.screens.schoolclass;
 import com.company.schoolmanagement.entity.School;
 import com.company.schoolmanagement.entity.Student;
 import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.GroupTable;
 import com.haulmont.cuba.gui.components.HasValue;
@@ -74,13 +75,25 @@ public class SchoolClassBrowse extends StandardLookup<SchoolClass> {
         return count + "/" + schoolClass.getCapacity();
     }
 
+    @Install(to = "schoolClassesDl",  target = Target.DATA_LOADER)
+    private List<SchoolClass> schoolClassesDlLoadDelegate(LoadContext<SchoolClass> loadContext) {
+        School selectedSchool = schoolFilter.getValue();
+        if(selectedSchool == null){
+            return dataManager.load(SchoolClass.class).list();
+        }
+       return dataManager.load(SchoolClass.class)
+               .query("select e from schoolmanagement_SchoolClass e " +
+                       "where e.school = :school")
+               .parameter("school", selectedSchool).list();
+    }
+
     @Subscribe("schoolFilter")
     protected void onSchoolFilterValueChange(
             HasValue.ValueChangeEvent<School> event) {
 
-        School selectedSchool = event.getValue();
-
-        schoolClassesDl.setParameter("school", selectedSchool);
+//        School selectedSchool = event.getValue();
+//
+//        schoolClassesDl.setParameter("school", selectedSchool);
         schoolClassesDl.load();
     }
 
