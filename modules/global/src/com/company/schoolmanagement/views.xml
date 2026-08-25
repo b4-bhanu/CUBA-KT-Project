@@ -9,4 +9,9 @@
         </property>
     </view>
     <view entity="schoolmanagement_School" name="school-view"/>
+    <view entity="schoolmanagement_Student"
+          name="student-view"
+          extends="_local">
+        <property name="classes"/>
+    </view>
 </views>

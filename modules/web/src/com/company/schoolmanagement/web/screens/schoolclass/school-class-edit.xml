@@ -37,7 +37,7 @@
             </column>
         </form>
         <buttonsPanel>
-        <button id="addBtn" action="studentsTable.add"/>
+        <button id="addBtn" caption = "Add"/>
         <button id="excludeBtn" action="studentsTable.exclude"/>
         </buttonsPanel>
         <groupBox id="studentsBox" caption="msg://com.company.schoolmanagement.entity/SchoolClass.students">
@@ -48,7 +48,7 @@
                 </columns>
 
                 <actions>
-                    <action id="add" type="add"/>
+<!--                    <action id="add" type="add"/>-->
                     <action id="exclude" type="exclude"/>
                 </actions>
             </table>

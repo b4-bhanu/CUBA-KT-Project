@@ -17,19 +17,37 @@ public class EnrollmentServiceBean implements EnrollmentService {
 
     @Override
     public EnrollmentStatus enroll(Student student, SchoolClass clazz) {
-        if(student.getClasses().contains(clazz)){
-            // avoid duplicate entries
+        // Reload Student with classes fetched
+        Student loadedStudent = dataManager.load(Student.class)
+                .id(student.getId())
+                .view("student-view")
+                .one();
+
+        // Check whether student is already enrolled
+        if (loadedStudent.getClasses().contains(clazz)) {
             return EnrollmentStatus.DUPLICATE;
         }
-//        log.info("Student count: {}", clazz.getStudents().size());
-//        log.info("Capacity: {}", clazz.getCapacity());
-        if(clazz.getStudents().size() >= clazz.getCapacity()){
-//             avoid class overload
-            return EnrollmentStatus.OVERLOAD;
 
+        // Count students directly in the database
+        Long studentCount = dataManager.loadValue(
+                        "select count(s) from schoolmanagement_Student s " +
+                                "join s.classes c " +
+                                "where c.id = :classId",
+                        Long.class)
+                .parameter("classId", clazz.getId())
+                .one();
+
+        // Check capacity
+        if (studentCount >= clazz.getCapacity()) {
+            return EnrollmentStatus.OVERLOAD;
         }
-        student.getClasses().add(clazz);
-        dataManager.commit(student);
+
+        // Enroll student
+        loadedStudent.getClasses().add(clazz);
+
+        // Persist the change
+        dataManager.commit(loadedStudent);
+
         return EnrollmentStatus.ENROLLED;
     }
 }
