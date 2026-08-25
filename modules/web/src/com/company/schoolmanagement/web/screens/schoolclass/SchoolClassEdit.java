@@ -10,6 +10,8 @@ import com.haulmont.cuba.gui.UiComponents;
 import com.haulmont.cuba.gui.components.Button;
 import com.haulmont.cuba.gui.components.Component;
 import com.haulmont.cuba.gui.components.LookupPickerField;
+import com.haulmont.cuba.gui.components.Table;
+import com.haulmont.cuba.gui.model.CollectionPropertyContainer;
 import com.haulmont.cuba.gui.model.InstanceLoader;
 import com.haulmont.cuba.gui.screen.*;
 import com.company.schoolmanagement.entity.SchoolClass;
@@ -31,6 +33,10 @@ public class SchoolClassEdit extends StandardEditor<SchoolClass> {
 
     @Inject
     private ScreenBuilders screenBuilders;
+    @Inject
+    private Table<Student> studentsTable;
+    @Inject
+    private CollectionPropertyContainer<Student> studentsDc;
 
     @Subscribe
     protected void onInitEntity(InitEntityEvent<SchoolClass> event) {
@@ -74,7 +80,33 @@ public class SchoolClassEdit extends StandardEditor<SchoolClass> {
                 })
                 .build()
                 .show();
+    }
 
+
+    @Subscribe("excludeBtn")
+    protected void onExcludeBtnClick(Button.ClickEvent event) {
+
+        Student student = studentsTable.getSingleSelected();
+
+        if (student == null) {
+            notifications.create()
+                    .withCaption("Please select a student")
+                    .show();
+            return;
+        }
+
+        SchoolClass clazz = getEditedEntity();
+
+        EnrollmentStatus status =
+                enrollmentService.exclude(student, clazz);
+
+        if (status == EnrollmentStatus.EXCLUDED) {
+            notifications.create()
+                    .withCaption("Student excluded successfully")
+                    .show();
+
+            studentsDc.getMutableItems().remove(student);
+        }
     }
 
 }
