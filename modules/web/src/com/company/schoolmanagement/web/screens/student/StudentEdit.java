@@ -4,16 +4,18 @@ import com.company.schoolmanagement.entity.SchoolClass;
 import com.company.schoolmanagement.entity.Student;
 import com.company.schoolmanagement.service.EnrollmentService;
 import com.company.schoolmanagement.service.EnrollmentStatus;
+import com.haulmont.cuba.core.global.DataManager;
+import com.haulmont.cuba.gui.Dialogs;
 import com.haulmont.cuba.gui.Notifications;
 import com.haulmont.cuba.gui.ScreenBuilders;
-import com.haulmont.cuba.gui.components.Button;
-import com.haulmont.cuba.gui.components.LookupPickerField;
-import com.haulmont.cuba.gui.components.Table;
+import com.haulmont.cuba.gui.components.*;
 import com.haulmont.cuba.gui.model.InstanceLoader;
 import com.haulmont.cuba.gui.screen.*;
 
 import javax.inject.Inject;
 import java.util.Date;
+import java.util.LinkedHashMap;
+import java.util.Map;
 
 @UiController("schoolmanagement_Student.edit")
 @UiDescriptor("student-edit.xml")
@@ -37,6 +39,15 @@ public class StudentEdit extends StandardEditor<Student> {
     @Inject private Button enrollBtn;
     @Inject
     private ScreenBuilders screenBuilders;
+
+    @Inject
+    private RadioButtonGroup<Boolean> activeField;
+
+    @Inject
+    private Dialogs dialogs;
+
+    @Inject
+    DataManager dataManager;
 
 
     @Subscribe("enrollBtn")
@@ -69,8 +80,53 @@ public class StudentEdit extends StandardEditor<Student> {
         Student student = event.getEntity();
         student.setName("New Student");
         student.setDob(new Date());
+        student.setEnrolledOn(new Date());
+        student.setActive(true);
     }
 
+//     for active/inactive radio button
+    @Subscribe
+    public void onInit(InitEvent event) {
+        Map<String, Boolean> map = new LinkedHashMap<>();
+
+        map.put("Active", true);
+        map.put("Inactive", false);
+
+        activeField.setOptionsMap(map);
+
+    }
+
+    // active/ inactive functionality
+    @Subscribe(id = "activeField")
+    protected void onActiveFieldValueChange(HasValue.ValueChangeEvent<Boolean> event){
+        Boolean newValue = event.getValue();
+
+        if(Boolean.FALSE.equals(newValue)){
+            showInactiveConfirmation();
+        }
+    }
+
+
+    private void showInactiveConfirmation(){
+        dialogs.createOptionDialog()
+                .withCaption("Confirm")
+                .withMessage("Doing this will Unenroll you from all the classes.")
+                .withActions(
+                        new DialogAction(DialogAction.Type.YES).withHandler(e -> {
+                            getEditedEntity().setActive(false);
+                            dataManager.commit(getEditedEntity());
+                            enrollmentService.unenrollFromAllClasses(getEditedEntity());
+                            getScreenData().loadAll();
+                        }),
+                        new DialogAction(DialogAction.Type.CANCEL).withHandler(e -> {
+                            getEditedEntity().setActive(true);
+                        })
+                ).show();
+    }
+
+
+
+  // custom "Add".
     @Subscribe("addBtn")
     protected void onAddBtnClick(Button.ClickEvent event) {
 

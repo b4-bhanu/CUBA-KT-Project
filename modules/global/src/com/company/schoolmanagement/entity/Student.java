@@ -3,6 +3,7 @@ package com.company.schoolmanagement.entity;
 import com.haulmont.cuba.core.entity.StandardEntity;
 import com.haulmont.chile.core.annotations.NamePattern;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Date;
 
@@ -25,6 +26,11 @@ public class Student extends StandardEntity {
     @Column(name = "ENROLLED_ON")
     @Temporal(TemporalType.DATE)
     private Date enrolledOn;
+
+    @Column(name = "ACTIVE")
+    @NotNull
+    private Boolean active;
+
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -64,5 +70,13 @@ public class Student extends StandardEntity {
 
     public void setEnrolledOn(Date enrolledOn) {
         this.enrolledOn = enrolledOn;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
     }
 }

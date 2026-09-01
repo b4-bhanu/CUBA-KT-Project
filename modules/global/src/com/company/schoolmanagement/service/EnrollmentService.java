@@ -8,4 +8,6 @@
      EnrollmentStatus enroll(Student student, SchoolClass clazz);
 
      EnrollmentStatus exclude(Student student, SchoolClass clazz);
+
+  void unenrollFromAllClasses(Student student);
  }

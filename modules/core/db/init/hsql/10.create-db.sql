@@ -12,6 +12,7 @@ create table SCHOOLMANAGEMENT_STUDENT (
     NAME varchar(255) not null,
     DOB date not null,
     ENROLLED_ON date,
+    ACTIVE boolean,
     --
     primary key (ID)
 )^

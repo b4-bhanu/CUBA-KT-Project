@@ -31,10 +31,21 @@
     <dialogMode height="600"
                 width="800"/>
     <layout expand="editActions" spacing="true">
+
         <form id="form" dataContainer="studentDc">
             <column width="350px">
+
                 <textField id="nameField" property="name"/>
                 <dateField id="dobField" property="dob"/>
+                <dateField id="enrolledOnField"
+                           property="enrolledOn"
+                           editable="false"/>
+                <radioButtonGroup id="activeField"
+                                  property="active"
+                                  caption="Status"
+                                  orientation="horizontal">
+                </radioButtonGroup>
+
             </column>
         </form>
         <groupBox id="classesBox" caption="msg://com.company.schoolmanagement.entity/Student.classes">

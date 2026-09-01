@@ -1,7 +1,7 @@
 package com.company.schoolmanagement.web.screens.schoolclass;
 
 import com.company.schoolmanagement.entity.School;
-import com.company.schoolmanagement.entity.Student;
+import com.company.schoolmanagement.entity.SchoolClass;
 import com.haulmont.cuba.core.global.DataManager;
 import com.haulmont.cuba.core.global.LoadContext;
 import com.haulmont.cuba.gui.UiComponents;
@@ -10,15 +10,11 @@ import com.haulmont.cuba.gui.components.HasValue;
 import com.haulmont.cuba.gui.components.LookupPickerField;
 import com.haulmont.cuba.gui.model.CollectionLoader;
 import com.haulmont.cuba.gui.screen.*;
-import com.company.schoolmanagement.entity.SchoolClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.inject.Inject;
-import java.util.Collection;
 import java.util.List;
-
-import static org.springframework.ldap.query.LdapQueryBuilder.query;
 
 @UiController("schoolmanagement_SchoolClass.browse")
 @UiDescriptor("school-class-browse.xml")
@@ -41,6 +37,7 @@ public class SchoolClassBrowse extends StandardLookup<SchoolClass> {
 
     @Inject
     DataManager dataManager;
+
 
     @Install(to = "schoolClassesTable.studentCount", subject = "valueProvider")
     private String schoolClassesTableStudentCountValueProvider(SchoolClass schoolClass) {

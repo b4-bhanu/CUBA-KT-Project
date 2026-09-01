@@ -1,0 +1,6 @@
+@import "schoolManagement-defaults";
+@import "schoolManagement";
+
+.schoolManagement {
+  @include schoolManagement;
+}

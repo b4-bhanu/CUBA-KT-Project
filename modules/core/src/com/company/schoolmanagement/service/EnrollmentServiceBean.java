@@ -51,6 +51,8 @@ public class EnrollmentServiceBean implements EnrollmentService {
         return EnrollmentStatus.ENROLLED;
     }
 
+
+
     @Override
     public EnrollmentStatus exclude(Student student, SchoolClass clazz) {
 
@@ -65,8 +67,22 @@ public class EnrollmentServiceBean implements EnrollmentService {
 
         loadedStudent.getClasses().remove(clazz);
 
+
         dataManager.commit(loadedStudent);
 
         return EnrollmentStatus.EXCLUDED;
+    }
+
+    @Override
+    public void unenrollFromAllClasses(Student student) {
+
+        Student managedStudent = dataManager.load(Student.class)
+                .id(student.getId())
+                .view("student-view")
+                .one();
+
+        managedStudent.getClasses().clear();
+
+        dataManager.commit(managedStudent);
     }
 }
