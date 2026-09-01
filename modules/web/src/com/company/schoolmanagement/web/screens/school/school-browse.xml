@@ -34,8 +34,8 @@
                 <action id="refresh"/>
             </actions>
             <columns>
-                <column id="name"/>
-                <column id="address"/>
+                <column id="name" align = "CENTER"/>
+                <column id="address" align="CENTER"/>
             </columns>
             <rows datasource="schoolsDs"/>
             <rowsCount/>

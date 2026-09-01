@@ -1,0 +1,5 @@
+@import "../schoolManagement";
+
+@mixin com_haulmont_cuba {
+  @include schoolManagement;
+}

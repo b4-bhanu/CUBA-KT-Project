@@ -12,6 +12,15 @@
             <collection id="classesDc"
                         property="classes"/>
         </instance>
+        <collection id="availableStudentDc"
+          class = "com.company.schoolmanagement.entity.Student"
+          view = "_local">
+            <loader id = "studentsDl">
+                <query>
+                    <![CDATA[select e from schoolmanagement_Student e]]>
+                </query>
+            </loader>
+        </collection>
     </data>
     <dialogMode height="600"
                 width="800"/>
@@ -25,6 +34,7 @@
         <hbox id="editActions" spacing="true">
             <button id="commitAndCloseBtn" action="windowCommitAndClose"/>
             <button id="closeBtn" action="windowClose"/>
+            <lookupPickerField id = "StudentPicker" caption="Students" optionsContainer="availableStudentDc" />
         </hbox>
     </layout>
 </window>
